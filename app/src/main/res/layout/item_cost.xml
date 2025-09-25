@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="@drawable/item_background"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp">
+
+    <!-- Timing -->
+    <TextView
+        android:id="@+id/tvTiming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timings"
+        android:textSize="14sp" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <!-- Cost -->
+    <TextView
+        android:id="@+id/tvCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_cost"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</LinearLayout>

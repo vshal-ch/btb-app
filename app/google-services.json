@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "877655698752",
+    "project_id": "beat-the-box-btb",
+    "storage_bucket": "beat-the-box-btb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877655698752:android:c05cebb93a4cca3ec5dea5",
+        "android_client_info": {
+          "package_name": "com.btb.beatthebox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWadFdUa_TPBUdEpSws2UhvDTfsAm4aqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

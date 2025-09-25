@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/previewImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:background="?android:windowBackground"
+        android:visibility="gone" />
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/previewPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:windowBackground"
+        android:visibility="gone" />
+
+</FrameLayout>

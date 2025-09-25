@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="slot_available">#00c951</color>
+    <color name="divider_color">#CCCCCC</color>
+    <color name="green_primary">#4CAF50</color> <!-- Material green -->
+    <color name="green_primary_variant">#388E3C</color> <!-- Darker green for status bar -->
+
+    <!-- Secondary color (can be a lighter green accent or teal) -->
+    <color name="green_secondary">#81C784</color> <!-- Light green accent -->
+    <color name="green_secondary_variant">#66BB6A</color>
+
+    <!-- Background and text -->
+    <color name="background_whitish">#FAFAFA</color> <!-- Soft white background -->
+    <color name="text_dark_grey">#212121</color> <!-- Almost black, dark grey -->
+    <!-- Secondary text -->
+    <color name="dark_background">#121212</color> <!-- Default dark background -->
+    <color name="dark_surface">#1E1E1E</color>   <!-- Cards / surfaces -->
+    <!-- Cards / surfaces -->
+
+    <!-- Text colors for dark mode -->
+    <color name="dark_text_primary">#E4E4E4</color>
+    <!-- 70% white -->
+
+    <!-- Keep the same green for brand identity -->
+    <color name="dark_green_primary">#4CAF50</color>
+    <color name="dark_green_primary_variant">#388E3C</color>
+    <color name="dark_green_secondary">#81C784</color>
+    <color name="dark_green_secondary_variant">#66BB6A</color>
+
+    <color name="open_status_color">#37B13C</color>
+    <color name="closed_status_color">#FF3232</color>
+
+    <color name="borderPrimaryOnLight">#22000000</color>
+    <color name="borderPrimaryOnDark">#2EFFFFFF</color>
+</resources>

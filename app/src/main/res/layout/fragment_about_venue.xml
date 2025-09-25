@@ -1,0 +1,196 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Carousel -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginBottom="16dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerCarousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- Prev Button -->
+            <ImageButton
+                android:id="@+id/btnPrev"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|start"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/left"
+                android:src="@drawable/baseline_chevron_left_24" />
+
+            <!-- Next Button -->
+            <ImageButton
+                android:id="@+id/btnNext"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/right"
+                android:src="@drawable/baseline_chevron_right_24" />
+        </FrameLayout>
+
+        <!-- Venue Name + Status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/tvVenueName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="@string/header_title"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/sub_head_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvVenueStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:drawablePadding="4dp"
+                    android:text="@string/venue_status_open"
+                    android:textColor="@color/open_status_color"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_big_dot" />
+
+                <!-- Timings -->
+                <TextView
+                    android:id="@+id/tvVenueTimings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:text="@string/timings"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/ic_small_dot" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Address Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/section_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/address_head"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/address"
+                android:textColor="?android:textColor"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSeeLocation"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_text"
+                android:textColor="?android:textColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/sf_pro_regular"
+                app:icon="@drawable/baseline_open_in_new_24"
+                app:iconGravity="end"
+                app:iconPadding="8dp"
+                app:iconTint="?android:textColor"
+                app:strokeColor="?android:textColor"
+                app:strokeWidth="1dp" />
+
+        </LinearLayout>
+
+        <!-- Dimensions Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/section_background"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/venue_dimensions"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvVenueDimens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_dimen_value"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Pricing Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/section_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/pricing_details_head"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:id="@+id/containerCosts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="?android:attr/dividerVertical"
+                android:orientation="vertical"
+                android:showDividers="none" />
+        </LinearLayout>
+        <include layout="@layout/view_loader" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".ui.availability.SlotAvailabilityFragment">
+
+        <!-- Venue Name -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_bold"
+            android:text="@string/header_title"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="?android:textColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Open/Closed with timings -->
+        <!-- Open/Closed status -->
+        <LinearLayout
+            android:id="@+id/sub_head_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_title">
+
+            <TextView
+                android:id="@+id/tvVenueStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:drawablePadding="4dp"
+                android:text="@string/venue_status_open"
+                android:textColor="@color/open_status_color"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_big_dot" />
+
+            <!-- Timings -->
+            <TextView
+                android:id="@+id/tvVenueTimings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:text="@string/timings"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_small_dot" />
+
+        </LinearLayout>
+
+        <!-- Date Dropdown + Refresh button -->
+        <LinearLayout
+            android:id="@+id/dateSelectorRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="32dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sub_head_title">
+
+            <Spinner
+                android:id="@+id/spinnerDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/date_options" />
+
+            <ImageButton
+                android:id="@+id/btnRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/refresh"
+                android:src="@drawable/baseline_refresh_24" />
+        </LinearLayout>
+
+        <!-- Available Time Slots label -->
+        <TextView
+            android:id="@+id/tvSlotsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/available_time_slots_label"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateSelectorRow" />
+
+        <LinearLayout
+            android:id="@+id/color_label_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSlotsLabel">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/available_label"
+                android:textColor="@color/slot_available"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_big_dot"
+                android:drawablePadding="12dp"
+                app:drawableTint="@color/slot_available" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booked_slot_label"
+                android:textColor="@color/divider_color"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_big_dot"
+                app:drawableTint="@color/divider_color"
+                android:drawablePadding="12dp"/>
+
+        </LinearLayout>
+
+        <!-- RecyclerView for timeline -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTimeline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/color_label_layout"
+            tools:listitem="@layout/item_timeline_slot" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/view_loader" />
+</FrameLayout>

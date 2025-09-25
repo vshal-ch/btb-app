@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_about_venue"
+        android:icon="@drawable/baseline_info_24"
+        android:title="@string/bottom_nav_title_about_venue" />
+    <item
+        android:id="@+id/navigation_slot_availability"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="@string/bottom_nav_title_slot_availability" />
+    <item
+        android:id="@+id/navigation_contact_details"
+        android:icon="@drawable/baseline_phone_24"
+        android:title="@string/bottom_nav_title_contact_details" />
+</menu>

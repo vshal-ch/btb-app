@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/navigation_slot_availability">
+
+    <fragment
+        android:id="@+id/navigation_slot_availability"
+        android:name="com.btb.beatthebox.ui.availability.SlotAvailabilityFragment"
+        tools:layout="@layout/fragment_slot_availability"
+        android:label="@string/fragment_label_slot_availability" />
+
+    <fragment
+        android:id="@+id/navigation_about_venue"
+        android:name="com.btb.beatthebox.ui.about.AboutVenueFragment"
+        tools:layout="@layout/fragment_about_venue"
+        android:label="@string/fragment_label_about_venue" />
+
+    <fragment
+        android:id="@+id/navigation_contact_details"
+        android:name="com.btb.beatthebox.ui.contact.ContactFragment"
+        tools:layout="@layout/fragment_contact"
+        android:label="@string/fragment_label_contact_details" />
+
+</navigation>
