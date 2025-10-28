@@ -1,8 +1,8 @@
 [versions]
 agp = "8.11.1"
 constraintlayout = "2.2.1"
+core = "13.0.0"
 coreSplashscreen = "1.0.1"
-exoplayer = "2.19.1"
 firebaseBom = "34.3.0"
 glide = "5.0.4"
 kotlin = "2.2.10"
@@ -31,7 +31,7 @@ androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtim
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
-exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+core = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "core" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

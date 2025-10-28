@@ -77,7 +77,7 @@ class AboutVenueFragment : Fragment() {
 
         viewPagerCarousel.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllExcept(position)
+//                (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllExcept(position)
             }
         })
 
@@ -217,27 +217,27 @@ class AboutVenueFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllPlayers()
+//        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllPlayers()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllPlayers()
+//        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllPlayers()
     }
 
     override fun onPause() {
         super.onPause()
-        (viewPagerCarousel.adapter as? CarouselAdapter)?.pauseAll()
+//        (viewPagerCarousel.adapter as? CarouselAdapter)?.pauseAll()
     }
 
     override fun onStop() {
         val current = viewPagerCarousel.currentItem
-        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllExcept(current)
+//        (viewPagerCarousel.adapter as? CarouselAdapter)?.releaseAllExcept(current)
         super.onStop()
     }
 
     private fun stopCurrent() {
         val current = viewPagerCarousel.currentItem
-        (viewPagerCarousel.adapter as? CarouselAdapter)?.pause(current)
+//        (viewPagerCarousel.adapter as? CarouselAdapter)?.pause(current)
     }
 }

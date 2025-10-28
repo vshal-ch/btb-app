@@ -12,8 +12,8 @@ android {
         applicationId = "com.btb.beatthebox"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,10 +22,12 @@ android {
             val storeFilePath = project.property("RELEASE_STORE_FILE") as String
             val storePassword = project.property("RELEASE_STORE_PASSWORD") as String
             val keyAlias = project.property("RELEASE_KEY_ALIAS") as String
+            val keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
 
             storeFile = file(storeFilePath)
             this.storePassword = storePassword
             this.keyAlias = keyAlias
+            this.keyPassword = keyPassword
         }
     }
     buildTypes {
@@ -33,13 +35,14 @@ android {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
         debug {
-            isMinifyEnabled = false  // <-- typically disabled for debug
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -93,9 +96,9 @@ dependencies {
 
     // ViewPager2 (for Carousel)
     implementation(libs.androidx.viewpager2) // Or latest version if available
-    implementation(libs.exoplayer)
     // Splash Screen API (Optional, for more control over animated splash)
     implementation(libs.androidx.core.splashscreen) // Or latest
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.core)
 }

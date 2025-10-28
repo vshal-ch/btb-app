@@ -74,10 +74,27 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
     }
 
     private fun openEmail(email: String) {
+        if(context == null){
+            return
+        }
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = "mailto:$email".toUri()
         }
-        startActivity(intent)
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            requireContext().startActivity(intent)
+        } else {
+            // Copy email to clipboard
+            val clipboard = requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = android.content.ClipData.newPlainText("Email address", email)
+            clipboard.setPrimaryClip(clip)
+
+            // Notify the user
+            Toast.makeText(
+                context,
+                "No email app found! Email copied to the clipboard.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun dialNumber(number: String) {
