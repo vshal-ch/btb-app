@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.btb.beatthebox.data.model.Note
+import com.btb.beatthebox.ui.reschedule.SummaryState
 import com.btb.beatthebox.ui.slot_selection.timeline.TimelineView
 
 class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
@@ -40,6 +41,7 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var errorText: TextView
+    private lateinit var warningText: TextView
     private lateinit var loaderContainer: FrameLayout
     private lateinit var contentContainer: View
 
@@ -57,6 +59,7 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
         dateButtonContainer = view.findViewById(R.id.dateButtonContainer)
         progressBar = view.findViewById(R.id.progress_bar)
         errorText = view.findViewById(R.id.error_text)
+        warningText = view.findViewById(R.id.warningText)
         loaderContainer = view.findViewById(R.id.loader_container)
         contentContainer = view.findViewById(R.id.content_container)
         timelineView = view.findViewById(R.id.timelineView)
@@ -105,19 +108,25 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
         }
 
         viewModel.summary.observe(viewLifecycleOwner) { summary ->
-            if (summary == null) {
-                summaryView.showMessage("Select a slot to see summary")
-                bookNowBtn.isEnabled = false
-            } else {
-                summaryView.showSummary(summary)
-                bookNowBtn.isEnabled = true
-            }
-        }
+            when (summary) {
 
-        viewModel.summaryError.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                summaryView.showMessage(it)
-                bookNowBtn.isEnabled = false
+                is SummaryState.SummaryError -> {
+                    summaryView.showMessage(summary.message)
+                    bookNowBtn.isEnabled = false
+                    warningText.text = ""
+                }
+
+                is SummaryState.Summary -> {
+                    summaryView.showSummary(summary.summary)
+                    bookNowBtn.isEnabled = true
+                    warningText.text = summary.warning ?: ""
+                }
+
+                else -> {
+                    summaryView.showMessage("Select a slot to see summary")
+                    warningText.text = ""
+                    bookNowBtn.isEnabled = false
+                }
             }
         }
 

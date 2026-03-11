@@ -106,7 +106,16 @@
                     <com.btb.beatthebox.ui.slot_selection.BookingSummaryView
                         android:id="@+id/summaryView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/warningText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/cf_progress_yellow"
+                        android:textSize="12sp" />
 
                     <!-- NOTES -->
                     <TextView

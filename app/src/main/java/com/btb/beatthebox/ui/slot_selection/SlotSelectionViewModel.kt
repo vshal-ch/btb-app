@@ -1,26 +1,27 @@
 package com.btb.beatthebox.ui.slot_selection
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.btb.beatthebox.constants.ALLOWABLE_WINDOW_MIN
 import com.btb.beatthebox.data.model.AllSportDetail
 import com.btb.beatthebox.data.model.CheckoutRequest
 import com.btb.beatthebox.data.model.Note
 import com.btb.beatthebox.data.model.Slot
 import com.btb.beatthebox.di.ServiceLocator.bookingRepository
 import com.btb.beatthebox.di.ServiceLocator.costRepository
+import com.btb.beatthebox.ui.reschedule.SummaryState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class SlotSelectionViewModel : ViewModel() {
 
-    private val _summary = MutableLiveData<BookingSummary?>()
-    val summary: LiveData<BookingSummary?> = _summary
+    private val _summary = MutableLiveData<SummaryState?>()
+    val summary: LiveData<SummaryState?> = _summary
 
-    private val _summaryError = MutableLiveData<String?>()
-    val summaryError: LiveData<String?> = _summaryError
 
     private val _notesLive = MutableLiveData<List<Note>?>()
     val notesLive: LiveData<List<Note>?> = _notesLive
@@ -145,8 +146,7 @@ class SlotSelectionViewModel : ViewModel() {
         selectedEndTimeUnit = endUnit
         val error = validateSlot(startUnit, endUnit)
         if (error != null) {
-            _summary.value = null
-            _summaryError.value = error
+            _summary.value = SummaryState.SummaryError(error)
             return
         }
 
@@ -159,8 +159,7 @@ class SlotSelectionViewModel : ViewModel() {
             val nowMinutes =
                 java.time.LocalTime.now().hour * 60 +
                         java.time.LocalTime.now().minute
-
-            if (unitToMinutes(start) < nowMinutes) {
+            if (unitToMinutes(start) < (nowMinutes - ALLOWABLE_WINDOW_MIN)) {
                 return "Selected slot is in the past"
             }
         }
@@ -186,7 +185,7 @@ class SlotSelectionViewModel : ViewModel() {
             date = selectedDate
         )
 
-        _summary.value = BookingSummary(
+        val summary = BookingSummary(
             date = selectedDate,
             sport = sport.sport,
             startTime = start,
@@ -195,14 +194,28 @@ class SlotSelectionViewModel : ViewModel() {
             totalCost = cost,
             box = sport.box
         )
-        _summaryError.value = null
+
+        var warning: String? = null
+        if (selectedDate.isEqual(LocalDate.now())) {
+
+            val nowMinutes =
+                java.time.LocalTime.now().hour * 60 +
+                        java.time.LocalTime.now().minute
+            if (nowMinutes > unitToMinutes(start) && nowMinutes < unitToMinutes(start) + ALLOWABLE_WINDOW_MIN) {
+                warning =
+                    "You can book the slot within $ALLOWABLE_WINDOW_MIN minutes of the start time but you cannot play after the end time."
+            }
+        }
+
+        _summary.value = SummaryState.Summary(
+            summary, warning, null
+        )
     }
 
     private fun resetSummary() {
         selectedStartTimeUnit = null
         selectedEndTimeUnit = null
         _summary.value = null
-        _summaryError.value = null
     }
 
     fun getCheckoutRequest(): CheckoutRequest? {
