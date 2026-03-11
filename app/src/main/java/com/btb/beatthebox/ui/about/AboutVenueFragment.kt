@@ -2,6 +2,7 @@ package com.btb.beatthebox.ui.about
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,18 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.btb.beatthebox.R
 import com.btb.beatthebox.activities.MediaPreviewActivity
+import com.btb.beatthebox.ui.about.sports.SportAdapter
+import com.btb.beatthebox.ui.about.sports.SportUiMapper
 import com.btb.beatthebox.ui.shared.MainViewModel
 import com.btb.beatthebox.utils.ApiResult
 import java.util.Calendar
@@ -27,19 +35,23 @@ class AboutVenueFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var viewPagerCarousel: ViewPager2
+    private lateinit var rvSports: RecyclerView
     private lateinit var btnPrev: ImageButton
     private lateinit var btnNext: ImageButton
     private lateinit var tvVenueName: TextView
     private lateinit var tvVenueStatus: TextView
     private lateinit var tvVenueTimings: TextView
     private lateinit var tvAddress: TextView
+    private lateinit var tvAboutVenue: TextView
     private lateinit var btnSeeLocation: Button
     private lateinit var tvDimensions: TextView
-    private lateinit var containerCosts: LinearLayout
 
     private lateinit var loaderContainer: View
     private lateinit var progressBar: ProgressBar
     private lateinit var errorText: TextView
+    private lateinit var sportsAdapter: SportAdapter
+    private lateinit var swipeLayout: SwipeRefreshLayout
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,16 +66,40 @@ class AboutVenueFragment : Fragment() {
         tvVenueStatus = root.findViewById(R.id.tvVenueStatus)
         tvVenueTimings = root.findViewById(R.id.tvVenueTimings)
         tvAddress = root.findViewById(R.id.tvAddress)
+        tvAboutVenue = root.findViewById(R.id.tvAboutVenue)
         btnSeeLocation = root.findViewById(R.id.btnSeeLocation)
-        tvDimensions = root.findViewById(R.id.tvVenueDimens)
-        containerCosts = root.findViewById(R.id.containerCosts)
 
         loaderContainer = root.findViewById(R.id.loader_container)
         progressBar = root.findViewById(R.id.progress_bar)
         errorText = root.findViewById(R.id.error_text)
+        rvSports = root.findViewById(R.id.rvSports)
+        swipeLayout = root.findViewById(R.id.swipeRefresh_about)
+
+        sportsAdapter = SportAdapter()
+
+        rvSports.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = sportsAdapter
+        }
+
+        sportsAdapter.onSportClick = { sportUi ->
+            findNavController().navigate(
+                R.id.action_about_to_sportCost,
+                bundleOf(
+                    "SPORT_ID" to sportUi.id,
+                    "SPORT_NAME" to sportUi.name,
+                    "SPORT_BOX" to sportUi.box
+                )
+            )
+        }
+
+        swipeLayout.setOnRefreshListener {
+            mainViewModel.refreshVenueDetails()
+        }
 
         observeVenue()
-        mainViewModel.fetchVenueDetails()
+        mainViewModel.fetchVenueDetailsIfNeeded()
 
         btnPrev.setOnClickListener {
             val current = viewPagerCarousel.currentItem
@@ -91,12 +127,14 @@ class AboutVenueFragment : Fragment() {
                     loaderContainer.visibility = View.VISIBLE
                     progressBar.visibility = View.VISIBLE
                     errorText.visibility = View.GONE
+                    swipeLayout.isRefreshing = false
                 }
 
                 is ApiResult.Success -> {
+                    progressBar.visibility = View.GONE
                     loaderContainer.visibility = View.GONE
+                    swipeLayout.isRefreshing = false
                     val venue = result.data
-
                     tvVenueName.text = venue.name
                     val drawable = tvVenueStatus.compoundDrawablesRelative[0]
 
@@ -152,7 +190,7 @@ class AboutVenueFragment : Fragment() {
                         tvVenueTimings.visibility = View.GONE
                     }
                     tvAddress.text = venue.address
-                    tvDimensions.text = venue.dimensions
+                    tvAboutVenue.text = venue.about
 
                     btnSeeLocation.setOnClickListener {
                         val gmapsUrl = venue.gmapsUrl
@@ -168,19 +206,13 @@ class AboutVenueFragment : Fragment() {
                             }
                         }
                     }
+                    Log.d("Sports", venue.sports.toString())
 
-                    // Costs
-                    containerCosts.removeAllViews()
-                    venue.costs.forEach { cost ->
-                        val view = layoutInflater.inflate(R.layout.item_cost, containerCosts, false)
+                    val sportUiList = SportUiMapper.map(venue.sports)
+                    Log.d("Sports", sportUiList.toString())
+                    sportsAdapter.items = sportUiList
+                    sportsAdapter.notifyDataSetChanged()
 
-                        val tvTiming = view.findViewById<TextView>(R.id.tvTiming)
-                        val tvCost = view.findViewById<TextView>(R.id.tvCost)
-
-                        tvTiming.text = cost.timings
-                        tvCost.text = getString(R.string.cost_per_hour_label, cost.cost.toString())
-                        containerCosts.addView(view)
-                    }
 
                     val adapter = CarouselAdapter(venue.media.map { it.srcUrl })
                     adapter.onMediaClick = { url, type ->
@@ -208,9 +240,15 @@ class AboutVenueFragment : Fragment() {
                     progressBar.visibility = View.GONE
                     errorText.visibility = View.VISIBLE
                     errorText.text = result.message
+                    swipeLayout.isRefreshing = false
                 }
 
-                else -> {}
+                is ApiResult.Refreshing -> {
+                    loaderContainer.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                    errorText.visibility = View.GONE
+                    swipeLayout.isRefreshing = true
+                }
             }
         }
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Disabled -->
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="1dp" android:color="?attr/dividerColorThin" />
+        </shape>
+    </item>
+
+    <!-- Enabled -->
+    <item>
+        <shape android:shape="oval">
+            <stroke android:width="1dp" android:color="?android:textColor" /> <!-- Replace with your color code -->
+            <solid android:color="@android:color/transparent" />
+        </shape>
+
+    </item>
+
+</selector>
+

@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="12dp">
+
+    <!-- SQUARE BUTTON -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/subTextColor"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- CONTENT CONTAINER -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="?attr/selectableItemBackground">
+
+            <!-- DATE CONTENT -->
+            <LinearLayout
+                android:id="@+id/dateContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvDayNumber"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:textColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvDayName"
+                    android:textSize="12sp"
+                    android:textColor="?android:textColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- CALENDAR ICON (hidden by default) -->
+            <ImageView
+                android:id="@+id/ivCalendar"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/ic_calendar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:tint="?android:textColor" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- LABEL -->
+    <TextView
+        android:id="@+id/tvLabel"
+        android:textSize="11sp"
+        android:textColor="?android:textColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

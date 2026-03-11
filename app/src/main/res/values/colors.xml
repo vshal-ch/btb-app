@@ -6,10 +6,18 @@
     <color name="divider_color">#CCCCCC</color>
     <color name="green_primary">#4CAF50</color> <!-- Material green -->
     <color name="green_primary_variant">#388E3C</color> <!-- Darker green for status bar -->
+    <color name="grey">#9E9E9E</color>
+    <color name="blocked_unit">#FF9191</color>
+    <color name="status_upcoming">#2E7D32</color>   <!-- green -->
+    <color name="status_past">#616161</color>       <!-- grey -->
+    <color name="status_attended">#1565C0</color>   <!-- blue -->
+
 
     <!-- Secondary color (can be a lighter green accent or teal) -->
     <color name="green_secondary">#81C784</color> <!-- Light green accent -->
     <color name="green_secondary_variant">#66BB6A</color>
+
+    <color name="green_primary_blur">#6A388E3C</color>
 
     <!-- Background and text -->
     <color name="background_whitish">#FAFAFA</color> <!-- Soft white background -->
@@ -17,14 +25,17 @@
     <!-- Secondary text -->
     <color name="dark_background">#121212</color> <!-- Default dark background -->
     <color name="dark_surface">#1E1E1E</color>   <!-- Cards / surfaces -->
+    <color name="light_surface">#E6E6E6</color>
     <!-- Cards / surfaces -->
 
     <!-- Text colors for dark mode -->
     <color name="dark_text_primary">#E4E4E4</color>
     <!-- 70% white -->
+    <color name="border_thin_light">#D1D1D1</color>
+    <color name="border_thin_dark">#646464</color>
 
     <!-- Keep the same green for brand identity -->
-    <color name="dark_green_primary">#4CAF50</color>
+    <color name="dark_green_primary">#43A047</color>
     <color name="dark_green_primary_variant">#388E3C</color>
     <color name="dark_green_secondary">#81C784</color>
     <color name="dark_green_secondary_variant">#66BB6A</color>

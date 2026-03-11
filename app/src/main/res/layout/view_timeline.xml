@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <com.btb.beatthebox.ui.slot_selection.timeline.NoFlingHorizontalScrollView
+        android:id="@+id/timelineScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+            <!-- ACTUAL TIMELINE -->
+            <com.btb.beatthebox.ui.slot_selection.timeline.TimelineCanvasView
+                android:id="@+id/timelineCanvas"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+    </com.btb.beatthebox.ui.slot_selection.timeline.NoFlingHorizontalScrollView>
+
+    <com.btb.beatthebox.ui.slot_selection.timeline.SelectionOverlayView
+        android:id="@+id/selectionOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

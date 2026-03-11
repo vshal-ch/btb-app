@@ -2,24 +2,227 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/navigation_slot_availability">
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.btb.beatthebox.ui.home.HomeFragment"
+        android:label="@string/fragment_label_slot_availability"
+        tools:layout="@layout/fragment_home">
+
+        <!-- Action from Home → Banner Detail -->
+        <action
+            android:id="@+id/action_home_to_bannerDetail"
+            app:destination="@id/bannerDetailFragment" />
+
+        <action
+            android:id="@+id/action_home_to_availability"
+            app:destination="@id/navigation_slot_availability" />
+
+        <action
+            android:id="@+id/action_home_to_slotSelection"
+            app:destination="@id/slot_selection_fragment" />
+
+        <action
+            android:id="@+id/action_home_to_userGames"
+            app:destination="@id/userGamesFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/bannerDetailFragment"
+        android:name="com.btb.beatthebox.ui.home.BannerDetailFragment"
+        android:label="Banner Detail"
+        tools:layout="@layout/fragment_banner_detail">
+
+        <!-- Arguments -->
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="srcUrl"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_slot_availability"
         android:name="com.btb.beatthebox.ui.availability.SlotAvailabilityFragment"
-        tools:layout="@layout/fragment_slot_availability"
-        android:label="@string/fragment_label_slot_availability" />
+        android:label="@string/fragment_label_slot_availability"
+        tools:layout="@layout/fragment_slot_availability">
+        <action
+            android:id="@+id/action_availability_to_slotSelection"
+            app:destination="@id/slot_selection_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/slot_selection_fragment"
+        android:name="com.btb.beatthebox.ui.slot_selection.SlotSelectionFragment"
+        android:label="Slot Selection Fragment"
+        tools:layout="@layout/fragment_slot_selection">
+        <action
+            android:id="@+id/action_slotSelection_to_checkout"
+            app:destination="@id/navigation_checkout" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_checkout"
+        android:name="com.btb.beatthebox.ui.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout">
+
+        <argument
+            android:name="checkoutRequest"
+            app:argType="com.btb.beatthebox.data.model.CheckoutRequest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/verifyingPaymentFragment"
+        android:name="com.btb.beatthebox.ui.payments.VerifyingPaymentFragment">
+        <argument
+            android:name="orderId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_verifyingPaymentFragment_to_paymentResultFragment"
+            app:destination="@id/paymentResultFragment"
+            app:popUpTo="@id/verifyingPaymentFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentResultFragment"
+        android:name="com.btb.beatthebox.ui.payments.PaymentResultFragment">
+
+        <argument
+            android:name="result"
+            app:argType="string" />
+        <argument
+            android:name="bookingId"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_paymentResultFragment_to_gamePassFragment"
+            app:destination="@id/bookingPassFragment"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingPassFragment"
+        android:name="com.btb.beatthebox.ui.gamepass.GamePassFragment"
+        android:label="Booking Pass">
+
+        <argument
+            android:name="bookingId"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_bookingPassFragment_to_reschedule"
+            app:destination="@id/rescheduleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rescheduleFragment"
+        android:name="com.btb.beatthebox.ui.reschedule.RescheduleFragment"
+        android:label="Reschedule"
+        tools:layout="@layout/fragment_reschedule">
+
+        <argument
+            android:name="game"
+            app:argType="com.btb.beatthebox.data.model.GamePass" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/userGamesFragment"
+        android:name="com.btb.beatthebox.ui.usergames.UserGamesFragment"
+        tools:layout="Your Games">
+
+        <action
+            android:id="@+id/action_userGamesFragment_to_bookingPassFragment"
+            app:destination="@id/bookingPassFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_about_venue"
         android:name="com.btb.beatthebox.ui.about.AboutVenueFragment"
-        tools:layout="@layout/fragment_about_venue"
-        android:label="@string/fragment_label_about_venue" />
+        android:label="@string/fragment_label_about_venue"
+        tools:layout="@layout/fragment_about_venue">
+        <action
+            android:id="@+id/action_about_to_sportCost"
+            app:destination="@id/navigation_sport_cost_detail" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_contact_details"
-        android:name="com.btb.beatthebox.ui.contact.ContactFragment"
-        tools:layout="@layout/fragment_contact"
-        android:label="@string/fragment_label_contact_details" />
+        android:id="@+id/navigation_sport_cost_detail"
+        android:name="com.btb.beatthebox.ui.sport_cost_detail.SportCostDetailFragment">
+        <argument
+            android:name="SPORT_ID"
+            app:argType="string" />
+        <argument
+            android:name="SPORT_NAME"
+            app:argType="string" />
+        <argument
+            android:name="SPORT_BOX"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_sportCost_to_slotSelection"
+            app:destination="@id/slot_selection_fragment" />
+    </fragment>
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_contact_details"-->
+    <!--        android:name="com.btb.beatthebox.ui.contact.ContactFragment"-->
+    <!--        tools:layout="@layout/fragment_contact"-->
+    <!--        android:label="@string/fragment_label_contact_details" />-->
+
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.btb.beatthebox.ui.user_profile.UserProfileFragment"
+        android:label="User"
+        tools:layout="@layout/fragment_user_profile">
+
+        <action
+            android:id="@+id/action_userProfile_to_faq"
+            app:destination="@id/navigation_faq" />
+        <action
+            android:id="@+id/action_userProfile_to_policies"
+            app:destination="@id/navigation_policies" />
+        <action
+            android:id="@+id/action_userProfile_to_userGames"
+            app:destination="@id/userGamesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_faq"
+        android:name="com.btb.beatthebox.ui.faq.FaqFragment"
+        android:label="Help &amp; FAQ"
+        tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/navigation_policies"
+        android:name="com.btb.beatthebox.ui.policies.PoliciesFragment"
+        android:label="Privacy &amp; Others">
+
+        <action
+            android:id="@+id/action_policies_to_webview"
+            app:destination="@id/navigation_policy_webview" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_policy_webview"
+        android:name="com.btb.beatthebox.ui.policies.PolicyWebViewFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

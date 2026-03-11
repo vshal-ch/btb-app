@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="subTextColor" format="color" />
+    <attr name="colorBackground" format="color" />
+    <attr name="dividerColorThin" format="color" />
+    <attr name="shimmer" format="color" />
+</resources>

@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tvSportHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Sport"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMorningHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="6AM - 6PM"
+        android:textStyle="bold"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/tvEveningHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="6PM - 12AM"
+        android:textStyle="bold"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/tvWeekendHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Weekend"
+        android:textStyle="bold" />
+</LinearLayout>

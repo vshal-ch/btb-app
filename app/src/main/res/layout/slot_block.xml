@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slot_background"
+    android:elevation="8dp"
+    android:translationZ="8dp"
+    >
+
+    <!-- Start time (top-left) -->
+    <TextView
+        android:id="@+id/tvStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="06:00 AM"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_gravity="top|start"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Center sport -->
+    <TextView
+        android:id="@+id/tvSport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cricket"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/black"/>
+
+    <!-- End time (bottom-right) -->
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="07:30 AM"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom|end"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"/>
+
+</FrameLayout>

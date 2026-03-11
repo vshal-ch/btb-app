@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Beat the Box</string>
-    <string name="bottom_nav_title_slot_availability">View Available Slots</string>
-    <string name="bottom_nav_title_about_venue">About Venue</string>
+    <string name="bottom_nav_title_home">Home</string>
+    <string name="bottom_nav_title_about_venue">Venue</string>
     <string name="bottom_nav_title_contact_details">Contact Details</string>
     <string name="fragment_label_slot_availability">View Available Slots</string>
     <string name="fragment_label_about_venue">About Venue</string>
@@ -13,20 +13,45 @@
     <string name="available_time_slots_label">Available Time Slots</string>
     <string name="address">📍 Address: 123 Street, City</string>
     <string name="address_head">Address</string>
-    <string name="venue_dimensions">Venue Dimensions</string>
+    <string name="available_sports">Available Sports</string>
     <string name="default_dimen_value">40x20 metres</string>
     <string name="pricing_details_head">Pricing Details</string>
     <string name="default_cost">₹1200/hour</string>
-    <string name="button_text">See Location</string>
+    <string name="button_text">Show in Map</string>
     <string name="left">left</string>
     <string name="right">right</string>
     <string name="contact_details_title">Contact Details</string>
     <string name="available_label">Slot Available</string>
     <string name="booked_slot_label">Slot Booked</string>
-    <string name="cost_per_hour_label">₹%1$s/hour</string>
+    <string name="cost_per_hour_label">₹%1$s/hr</string>
+    <string name="plus_cost_per_hour_label">+ ₹%1$s/hr</string>
+    <string name="sport">Sport</string>
+    <string name="server_client_id">921569761290-4isuh7m80s6s6t7n3r5bbdn51q8qi7t5.apps.googleusercontent.com</string>
+    <string name="edit_phone">Edit phone</string>
+    <string name="logout">Logout</string>
+    <string name="nav_user_profile_text">You</string>
+    <string name="avatar">avatar</string>
+    <string name="edit_name">Edit name</string>
+    <string name="header_about_venue">About Venue</string>
+    <string name="subtitle_sport_cost">Charges per hour at Beat The Box</string>
+    <string name="about_venue_description">About Venue Description</string>
     <string-array name="date_options">
         <item>Today</item>
         <item>Tomorrow</item>
         <item>Day After</item>
     </string-array>
+    <string name="login_terms_text">
+        By continuing, you agree to our
+        <a href="https://beat-the-box.fun/terms-and-conditions.html">Terms of Service</a>
+        and
+        <a href="https://beat-the-box.fun/privacy-policy.html">Privacy Policy</a>.
+    </string>
+    <string name="complete_profile_screen_head">Please enter you Phone number</string>
+    <string name="faq_help_title"><![CDATA[FAQ & Help]]></string>
+    <string name="check_availability_header_title">Check Availability</string>
+    <string name="box_1_label">Cricket • Volleyball</string>
+    <string name="box_2_label">Badminton</string>
+    <string name="spinner_label">Select Day</string>
+    <string name="user_games_header_title">Your games</string>
+
 </resources>

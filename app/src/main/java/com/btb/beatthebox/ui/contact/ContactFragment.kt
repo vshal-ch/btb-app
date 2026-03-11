@@ -62,7 +62,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
                     ).show()
                 }
 
-                is ApiResult.Loading -> {
+                is ApiResult.Loading,is ApiResult.Refreshing -> {
                     loaderContainer.visibility = View.VISIBLE
                     progressBar.visibility = View.VISIBLE
                     errorText.visibility = View.GONE

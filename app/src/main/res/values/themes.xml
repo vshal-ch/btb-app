@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.BeatTheBox" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color -->
+        <item name="android:forceDarkAllowed" tools:targetApi="29" >false</item>
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryVariant">@color/green_primary_variant</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -20,6 +21,21 @@
 
         <!-- Text colors -->
         <item name="android:textColor">@color/text_dark_grey</item>
+        <item name="subTextColor">#666666</item>
+        <item name="colorBackground">@color/background_whitish</item>
+        <item name="dividerColorThin">@color/border_thin_light</item>
+        <item name="shimmer">#e0e0e0</item>
         <item name="android:fontFamily">@font/sf_font_family</item>
+        <item name="labelTextAppearance">@color/grey</item>
+    </style>
+
+    <style name="Theme.BeatTheBox.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">
+            @style/Theme.BeatTheBox
+        </item>
+        <item name="windowSplashScreenBackground">@color/green_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="android:windowSplashScreenBehavior" tools:targetApi="33">icon_preferred</item>
+
     </style>
 </resources>
