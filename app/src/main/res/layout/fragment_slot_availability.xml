@@ -4,149 +4,781 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh_availability"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".ui.availability.SlotAvailabilityFragment">
+        android:layout_height="match_parent">
 
-        <!-- Venue Name -->
-        <TextView
-            android:id="@+id/header_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_bold"
-            android:text="@string/header_title"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            android:textColor="?android:textColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Open/Closed with timings -->
-        <!-- Open/Closed status -->
-        <LinearLayout
-            android:id="@+id/sub_head_title"
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_title">
-
-            <TextView
-                android:id="@+id/tvVenueStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:drawablePadding="4dp"
-                android:text="@string/venue_status_open"
-                android:textColor="@color/open_status_color"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_big_dot" />
-
-            <!-- Timings -->
-            <TextView
-                android:id="@+id/tvVenueTimings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="4dp"
-                android:text="@string/timings"
-                android:textSize="12sp"
-                app:drawableStartCompat="@drawable/ic_small_dot" />
-
-        </LinearLayout>
-
-        <!-- Date Dropdown + Refresh button -->
-        <LinearLayout
-            android:id="@+id/dateSelectorRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="32dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sub_head_title">
-
-            <Spinner
-                android:id="@+id/spinnerDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/date_options" />
-
-            <ImageButton
-                android:id="@+id/btnRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/refresh"
-                android:src="@drawable/baseline_refresh_24" />
-        </LinearLayout>
-
-        <!-- Available Time Slots label -->
-        <TextView
-            android:id="@+id/tvSlotsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/available_time_slots_label"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateSelectorRow" />
-
-        <LinearLayout
-            android:id="@+id/color_label_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSlotsLabel">
+            android:padding="16dp"
+            tools:context=".ui.availability.SlotAvailabilityFragment">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/header_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/available_label"
-                android:textColor="@color/slot_available"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_big_dot"
-                android:drawablePadding="12dp"
-                app:drawableTint="@color/slot_available" />
+                android:fontFamily="@font/sf_pro_bold"
+                android:text="@string/check_availability_header_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="?android:textColor"
+                android:layout_marginTop="8dp"/>
 
+            <!-- Date Dropdown + Refresh button -->
+            <LinearLayout
+                android:id="@+id/dateSelectorRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/spinnerLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spinner_label"
+                    android:textSize="12sp"
+                    android:textColor="?attr/subTextColor" />
+
+                <Spinner
+                    android:id="@+id/spinnerDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/date_options" />
+
+            </LinearLayout>
+
+            <!-- Box Selector -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:orientation="vertical">
+
+                <!-- Toggle buttons -->
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/boxToggleGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    app:checkedButton="@id/btnBox1">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBox1"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:text="Box 1"
+                        android:textAllCaps="false" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBox2"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:text="Box 2"
+                        android:textAllCaps="false" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <!-- Labels -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvBox1Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/box_1_label"
+                        android:textSize="12sp"
+                        android:textColor="?attr/subTextColor"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tvBox2Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/box_2_label"
+                        android:textSize="12sp"
+                        android:textColor="?attr/subTextColor"
+                        android:gravity="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Available Time Slots label -->
             <TextView
+                android:id="@+id/tvSlotsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/booked_slot_label"
-                android:textColor="@color/divider_color"
-                android:textSize="16sp"
-                app:drawableStartCompat="@drawable/ic_big_dot"
-                app:drawableTint="@color/divider_color"
-                android:drawablePadding="12dp"/>
+                android:text="@string/available_time_slots_label"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
 
+            <LinearLayout
+                android:id="@+id/color_label_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:drawablePadding="12dp"
+                    android:text="@string/available_label"
+                    android:textColor="@color/slot_available"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_big_dot"
+                    app:drawableTint="@color/slot_available" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="12dp"
+                    android:text="@string/booked_slot_label"
+                    android:textColor="@color/divider_color"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_big_dot"
+                    app:drawableTint="@color/divider_color" />
+
+            </LinearLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:minHeight="200dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:foregroundGravity="right">
+
+                    <LinearLayout
+                        android:id="@+id/timeLineContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        android:paddingVertical="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="06:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="07:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="08:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="09:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="11:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="02:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="03:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="04:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="05:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="06:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="07:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="08:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="09:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal">
+
+                            <!-- Left 30% -->
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.8">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="11:00 PM"
+                                    android:textSize="11sp"
+                                    android:translationY="-10dp" /> <!-- adjust as needed -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:text="12:00 AM"
+                                    android:textSize="11sp"
+                                    android:translationY="4dp" />
+                            </FrameLayout>
+
+                            <!-- Right 70% (Green block with border) -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/green_box_background" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                    <!-- Time slot overlay container -->
+                    <FrameLayout
+                        android:id="@+id/slotOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:foregroundGravity="right"
+                        android:gravity="end" />
+                </FrameLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ctaBookNow_avail"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:text="Book your next game"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/baseline_chevron_right_24"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:cornerRadius="14dp"
+                app:elevation="2dp"
+                style="?attr/materialButtonStyle" />
         </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <!-- RecyclerView for timeline -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTimeline"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:paddingTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/color_label_layout"
-            tools:listitem="@layout/item_timeline_slot" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/view_loader" />
 </FrameLayout>

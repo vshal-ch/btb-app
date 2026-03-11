@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_chevron_left_24"
+            android:contentDescription="Back"
+            app:tint="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"/>
+
+    <!-- Content -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Appearance"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/themeLight"
+                android:text="Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/themeDark"
+                android:text="Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/themeSystem"
+                android:text="System default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

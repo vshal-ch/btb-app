@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -10,10 +11,10 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.btb.beatthebox"
-        minSdk = 29
+        minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 13
+        versionName = "1.2.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -101,4 +102,13 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.core)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.play.services.auth)
+    implementation(libs.flexbox)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.shimmer)
+    implementation(libs.api)
 }

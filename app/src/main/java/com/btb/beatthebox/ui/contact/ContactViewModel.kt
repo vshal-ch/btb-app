@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.btb.beatthebox.data.model.Contact
 import com.btb.beatthebox.data.remote.ApiClient
+import com.btb.beatthebox.di.ServiceLocator.apiService
 import com.btb.beatthebox.utils.ApiResult
+import com.btb.beatthebox.utils.errorMessage
 import kotlinx.coroutines.launch
 
 class ContactViewModel : ViewModel() {
@@ -17,7 +19,7 @@ class ContactViewModel : ViewModel() {
     fun loadContacts() {
         viewModelScope.launch {
             try {
-                val response = ApiClient.apiService.getContacts()
+                val response = apiService.getContacts()
                 if (response.isSuccessful && response.body() != null) {
                     val body = response.body()!!
                     if (body.success && body.data != null) {
@@ -26,7 +28,7 @@ class ContactViewModel : ViewModel() {
                         _contacts.value = ApiResult.Error(body.error ?: "Unknown error from server")
                     }
                 } else {
-                    _contacts.value = ApiResult.Error("Failed: ${response.message()}")
+                    _contacts.value = ApiResult.Error("Failed: ${response.errorMessage()}")
                 }
             } catch (e: Exception) {
                 _contacts.value = ApiResult.Error("Network error: ${e.localizedMessage}")

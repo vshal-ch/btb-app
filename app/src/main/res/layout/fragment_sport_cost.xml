@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/baseline_chevron_left_24"
+        app:tint="?android:textColor" />
+
+    <TextView
+        android:id="@+id/tvSportName"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvSportBox"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/subtitle_sport_cost"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!-- Weekdays -->
+    <TextView
+        android:text="Weekdays"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <include layout="@layout/item_cost"
+        android:id="@+id/weekdayMorning"/>
+
+    <include layout="@layout/item_cost"
+        android:id="@+id/weekdayEvening"/>
+
+    <!-- Weekends -->
+    <TextView
+        android:text="Weekends"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <include layout="@layout/item_cost"
+        android:id="@+id/weekendMorning"/>
+
+    <include layout="@layout/item_cost"
+        android:id="@+id/weekendEvening"/>
+
+    <View
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"/>
+
+    <!-- CTA -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBook"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Book Now"
+        android:enabled="false"
+        android:textStyle="bold"
+        android:backgroundTint="?colorPrimary"/>
+</LinearLayout>

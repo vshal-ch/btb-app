@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
+
+    <include
+        android:id="@+id/container_google_login"
+        layout="@layout/layout_google_login" />
+
+    <include
+        android:id="@+id/container_profile_form"
+        layout="@layout/layout_complete_profile"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>
