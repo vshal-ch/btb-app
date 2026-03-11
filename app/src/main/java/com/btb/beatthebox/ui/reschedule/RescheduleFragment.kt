@@ -43,6 +43,7 @@ class RescheduleFragment : Fragment() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var errorText: TextView
+    private lateinit var warningText: TextView
     private lateinit var loaderContainer: FrameLayout
 
     private lateinit var game: GamePass
@@ -67,6 +68,7 @@ class RescheduleFragment : Fragment() {
         loaderContainer = root.findViewById(R.id.loader_container)
         btnReschedule = root.findViewById(R.id.btnReschedule)
         tvErrorMsg = root.findViewById(R.id.errorText)
+        warningText = root.findViewById(R.id.warningText)
         btnInfo = root.findViewById(R.id.btnInfo)
 
         game = requireArguments().getParcelable("game") ?: return root
@@ -105,7 +107,7 @@ class RescheduleFragment : Fragment() {
                         state.data,
                         viewModel.getSelectedDate()
                     )
-                    timelineView.setStartUnit(game.startTime, game.endTime  )
+                    timelineView.setStartUnit(game.startTime, game.endTime)
 
                     if (isFirstTime) {
                         setupFromSummaryView()
@@ -126,11 +128,14 @@ class RescheduleFragment : Fragment() {
 
                 is SummaryState.SummaryError -> {
                     toSummaryView.showMessage(summary.message)
+                    tvErrorMsg.text = ""
+                    warningText.text = ""
                     btnReschedule.isEnabled = false
                 }
 
                 is SummaryState.Summary -> {
                     toSummaryView.showSummary(summary.summary)
+                    warningText.text = summary.warning ?: ""
                     if (summary.error != null) {
                         tvErrorMsg.text = summary.error
                         btnReschedule.isEnabled = false
@@ -142,6 +147,8 @@ class RescheduleFragment : Fragment() {
 
                 else -> {
                     toSummaryView.showMessage("Select a slot to see summary")
+                    warningText.text = ""
+                    tvErrorMsg.text = ""
                     btnReschedule.isEnabled = false
                 }
             }

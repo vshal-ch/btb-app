@@ -32,8 +32,8 @@ class SlotAvailabilityViewModel : ViewModel() {
         fetchSlots(date, box, true)
     }
 
-    fun fetchSlots(date: String, box: String, isRefresh: Boolean) {
-        if(date == lastDate && box == lastBox){
+    private fun fetchSlots(date: String, box: String, isRefresh: Boolean) {
+        if(!isRefresh && date == lastDate && box == lastBox){
             return
         }
         if (!isRefresh) {
