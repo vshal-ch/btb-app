@@ -13,7 +13,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <!-- SCROLLABLE CONTENT -->
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/content_container"
@@ -94,7 +93,15 @@
 
                         <!-- SPORTS -->
                     </LinearLayout>
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="6dp"
+                        android:text="Select more than 2 hours to avail &quot;Book 2 hrs get 1 extra hr free &quot; offer."
+                        android:textSize="12sp"
+                        android:textColor="@color/cf_progress_yellow"/>
 
                     <com.btb.beatthebox.ui.slot_selection.timeline.TimelineView
                         android:id="@+id/timelineView"
@@ -103,11 +110,21 @@
                         android:layout_marginTop="12dp" />
 
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="Prices here are shown without discount(if any)."
+                        android:textSize="11sp"
+                        android:gravity="end"/>
+
+
                     <com.btb.beatthebox.ui.slot_selection.BookingSummaryView
                         android:id="@+id/summaryView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"/>
+                        android:layout_marginVertical="6dp"/>
+
 
                     <TextView
                         android:id="@+id/warningText"

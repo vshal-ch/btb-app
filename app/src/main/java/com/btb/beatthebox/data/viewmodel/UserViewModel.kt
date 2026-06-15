@@ -28,6 +28,17 @@ class UserViewModel: ViewModel() {
         }
     }
 
+    fun delete( onComplete: () -> Unit) {
+        viewModelScope.launch {
+            try {
+                authRepository.delete()
+            }finally {
+                UserSession.clear()
+                onComplete()
+            }
+        }
+    }
+
 
     fun clear() {
         UserSession.clear()

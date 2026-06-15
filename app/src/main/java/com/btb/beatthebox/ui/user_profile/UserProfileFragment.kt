@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -50,8 +51,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         )
 
         editName.setOnClickListener {
-            EditProfileBottomSheet
-                .newInstance(EditProfileField.NAME)
+            EditProfileBottomSheet.newInstance(EditProfileField.NAME)
                 .show(childFragmentManager, "edit_name")
         }
         setupAdapterCallbacks()
@@ -60,8 +60,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
     private fun setupAdapterCallbacks() {
         profileAdapter.onEditPhone = {
-            EditProfileBottomSheet
-                .newInstance(EditProfileField.PHONE)
+            EditProfileBottomSheet.newInstance(EditProfileField.PHONE)
                 .show(childFragmentManager, "edit_phone")
         }
 
@@ -90,21 +89,38 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         profileAdapter.onLogout = {
             showLogoutConfirmation()
         }
+
+        profileAdapter.onDeleteAccount = {
+            showDeleteConfirmation()
+        }
     }
 
     private fun showLogoutConfirmation() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Logout") { _, _ ->
+        AlertDialog.Builder(requireContext()).setTitle("Logout")
+            .setMessage("Are you sure you want to logout?").setPositiveButton("Logout") { _, _ ->
                 progressBar.visibility = View.VISIBLE
                 userViewModel.logout {
                     progressBar.visibility = View.GONE
                     navigateToLogin()
                 }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+            }.setNegativeButton("Cancel", null).show()
+    }
+
+    private fun showDeleteConfirmation() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Are you sure you want to delete your account?")
+            .setMessage("This action cannot be undone.").setPositiveButton("Delete") { _, _ ->
+                progressBar.visibility = View.VISIBLE
+                userViewModel.delete {
+                    Toast.makeText(
+                        requireContext(),
+                        "Account deleted successfully",
+                        Toast.LENGTH_LONG
+                    ).show();
+                    progressBar.visibility = View.GONE
+                    navigateToLogin()
+                }
+            }.setNegativeButton("Cancel", null).show()
     }
 
     private fun navigateToLogin() {
@@ -122,11 +138,8 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                     user ?: return@collect
 
                     headerName.text = user.name
-                    Glide.with(this@UserProfileFragment)
-                        .load(user.avatarUrl)
-                        .placeholder(R.drawable.avatar_placeholder)
-                        .circleCrop()
-                        .into(avatarView)
+                    Glide.with(this@UserProfileFragment).load(user.avatarUrl)
+                        .placeholder(R.drawable.avatar_placeholder).circleCrop().into(avatarView)
                     profileAdapter.items = ProfileUiMapper.map(user)
                     profileAdapter.notifyDataSetChanged()
                 }
