@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.btb.beatthebox.data.model.Slot
 import androidx.core.graphics.toColorInt
 import com.btb.beatthebox.R
+import com.btb.beatthebox.constants.ALLOWABLE_WINDOW_MIN
 import com.btb.beatthebox.utils.ThemeUtils
 import java.time.LocalDate
 import java.time.LocalTime
@@ -75,8 +76,8 @@ class TimelineCanvasView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun setDurationUnits(units: Int,unitWidth: Float) {
-        if(durationUnits == units) return
+    fun setDurationUnits(units: Int, unitWidth: Float) {
+        if (durationUnits == units) return
         prevDurationUnits = durationUnits
         prevWidthPerUnit = widthPerUnit
         durationUnits = units
@@ -86,9 +87,6 @@ class TimelineCanvasView @JvmOverloads constructor(
     }
 
     fun findNextAvailableUnit(durationUnits: Int): Int {
-        Log.d("TimelineCanvasView", "findNextAvailableUnit: $blockedSlots")
-        Log.d("TimelineCanvasView", "findNextAvailableUnit: $durationUnits"
-        )
         val lastPossibleStart = totalUnits - durationUnits
         val firstUnit = if (date == LocalDate.now()) nextPossibleUnit() else 0
         for (startUnit in firstUnit..lastPossibleStart) {
@@ -249,6 +247,10 @@ class TimelineCanvasView @JvmOverloads constructor(
         val minutes = hour * 60 + LocalTime.now().minute
         if (minutes <= 360) {
             return 0
+        }
+        val minutesFromMod = minutes % 30
+        if (minutesFromMod < ALLOWABLE_WINDOW_MIN) {
+            return ceil((minutes - minutesFromMod - 360).toDouble() / 30).toInt()
         }
         return ceil((minutes - 360).toDouble() / 30).toInt()
     }

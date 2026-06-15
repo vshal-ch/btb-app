@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.btb.beatthebox.constants.ALLOWABLE_WINDOW_MIN
 import com.btb.beatthebox.data.model.AllSportDetail
 import com.btb.beatthebox.data.model.GamePass
 import com.btb.beatthebox.data.model.Note
@@ -123,7 +124,7 @@ class RescheduleViewModel(private var from: GamePass) : ViewModel() {
                 LocalTime.now().hour * 60 +
                         LocalTime.now().minute
 
-            if (unitToMinutes(start) < nowMinutes) {
+            if (unitToMinutes(start) < (nowMinutes - ALLOWABLE_WINDOW_MIN)) {
                 return "Selected slot is in the past"
             }
         }
@@ -158,23 +159,30 @@ class RescheduleViewModel(private var from: GamePass) : ViewModel() {
             totalCost = cost,
             box = from.box
         )
+
+        var error: String? = null
+
         if (fromDate == selectedDate && start == from.startTime && end == from.endTime) {
-            _toSummaryState.value =
-                SummaryState.Summary(summary, "Selected slot is same as original slot")
-            return
+            error = "Selected slot is same as original slot"
+        } else if (end - start != from.endTime - from.startTime) {
+            error = "Selected slot duration is not same as original slot"
+
+        } else if (cost != fromPriceWithoutDiscount) {
+            error = "Price should remain same"
         }
 
-        if (end - start != from.endTime - from.startTime) {
-            _toSummaryState.value =
-                SummaryState.Summary(summary, "Selected slot duration is not same as original slot")
-            return
+        var warning: String? = null
+        if (selectedDate.isEqual(LocalDate.now())) {
+
+            val nowMinutes =
+                LocalTime.now().hour * 60 +
+                        LocalTime.now().minute
+            if (nowMinutes > unitToMinutes(start) && nowMinutes < unitToMinutes(start) + ALLOWABLE_WINDOW_MIN) {
+                warning =
+                    "You can book the slot within $ALLOWABLE_WINDOW_MIN minutes of the start time but you cannot play after the end time."
+            }
         }
-        if (cost != fromPriceWithoutDiscount) {
-            _toSummaryState.value =
-                SummaryState.Summary(summary, "Price should remain same")
-            return
-        }
-        _toSummaryState.value = SummaryState.Summary(summary, null)
+        _toSummaryState.value = SummaryState.Summary(summary, warning, error)
     }
 
     fun submitReschedule() {
