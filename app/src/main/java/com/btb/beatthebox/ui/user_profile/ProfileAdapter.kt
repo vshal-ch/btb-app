@@ -17,12 +17,14 @@ class ProfileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onEditPhone: (() -> Unit)? = null
     var onActionClick: ((String) -> Unit)? = null
     var onLogout: (() -> Unit)? = null
+    var onDeleteAccount: (() -> Unit)? = null
 
     override fun getItemViewType(position: Int): Int = when (items[position]) {
         is ProfileItem.Info -> 0
         is ProfileItem.EditablePhone -> 1
         is ProfileItem.Action -> 2
         is ProfileItem.Logout -> 3
+        is ProfileItem.DeleteAccount -> 4
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -31,7 +33,8 @@ class ProfileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             0 -> InfoVH(inflater.inflate(R.layout.item_profile_info, parent, false))
             1 -> PhoneVH(inflater.inflate(R.layout.item_profile_editable_phone, parent, false))
             2 -> ActionVH(inflater.inflate(R.layout.item_profile_action, parent, false))
-            else -> LogoutVH(inflater.inflate(R.layout.item_profile_logout, parent, false))
+            3 -> LogoutVH(inflater.inflate(R.layout.item_profile_logout, parent, false))
+            else -> DeleteAccountVH(inflater.inflate(R.layout.item_profile_delete, parent, false));
         }
     }
 
@@ -43,6 +46,7 @@ class ProfileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is ProfileItem.EditablePhone -> (holder as PhoneVH).bind(item)
             is ProfileItem.Action -> (holder as ActionVH).bind(item)
             is ProfileItem.Logout -> (holder as LogoutVH).bind()
+            is ProfileItem.DeleteAccount -> (holder as DeleteAccountVH).bind()
         }
     }
 
@@ -86,6 +90,12 @@ class ProfileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class LogoutVH(view: View) : RecyclerView.ViewHolder(view) {
         fun bind() {
             itemView.setOnClickListener { onLogout?.invoke() }
+        }
+    }
+
+    inner class DeleteAccountVH(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind() {
+            itemView.setOnClickListener { onDeleteAccount?.invoke() }
         }
     }
 }

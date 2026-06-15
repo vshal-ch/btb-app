@@ -24,7 +24,8 @@ object ProfileUiMapper {
             ProfileItem.Action(R.drawable.settings, "Settings"),
             ProfileItem.Action(R.drawable.help, "FAQ & Help"),
             ProfileItem.Action(R.drawable.ic_privacy, "Privacy & Others"),
-            ProfileItem.Logout
+            ProfileItem.Logout,
+            ProfileItem.DeleteAccount
         )
     }
 

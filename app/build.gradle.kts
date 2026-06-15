@@ -13,8 +13,8 @@ android {
         applicationId = "com.btb.beatthebox"
         minSdk = 26
         targetSdk = 36
-        versionCode = 13
-        versionName = "1.2.6"
+        versionCode = 16
+        versionName = "1.2.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

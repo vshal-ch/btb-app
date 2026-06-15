@@ -160,4 +160,20 @@ class AuthRepository(
         }
     }
 
+    suspend fun delete() {
+        val refreshToken = tokenStore.getRefreshToken()
+        Log.d("DEBUG", "Deleting account with refresh token $refreshToken")
+        try {
+            refreshToken?.let { LogoutRequest(it) }?.let {
+                api.delete(
+                    body = it
+                )
+            }
+
+        } catch (e: Exception) {
+            // Even if this fails, we STILL clear local state
+        } finally {
+            tokenStore.clear()
+        }
+    }
 }

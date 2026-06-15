@@ -21,4 +21,5 @@ sealed class ProfileItem {
     ) : ProfileItem()
 
     object Logout : ProfileItem()
+    object DeleteAccount : ProfileItem()
 }
