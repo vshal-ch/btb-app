@@ -56,7 +56,7 @@
 
     <!-- Weekends -->
     <TextView
-        android:text="Weekends"
+        android:text="Weekends / Holidays"
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
