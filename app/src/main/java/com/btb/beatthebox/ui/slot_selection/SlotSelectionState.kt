@@ -8,7 +8,8 @@ sealed class SlotSelectionState {
     object Refreshing : SlotSelectionState()
     data class Success(
         val sportDetails: List<AllSportDetail>,
-        val slots: List<Slot>
+        val slots: List<Slot>,
+        val offerText: String
     ) : SlotSelectionState()
     data class Error(val message: String) : SlotSelectionState()
 }

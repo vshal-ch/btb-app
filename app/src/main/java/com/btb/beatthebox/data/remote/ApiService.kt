@@ -28,6 +28,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -80,6 +81,10 @@ interface ApiService {
     suspend fun getCostBySport(
         @Path("sport") sport: String
     ): Response<ApiResponse<AllSportDetail>>
+
+    @GET("notes/offer-text")
+    @Headers("X-Local-Cache: true")
+    suspend fun getOfferText(): Response<ApiResponse<String>>
 
     @GET("sports/all")
     suspend fun getAllSportDetail(): Response<ApiResponse<List<AllSportDetail>>>

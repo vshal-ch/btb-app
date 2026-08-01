@@ -40,6 +40,7 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
     private lateinit var dateButtonContainer: LinearLayout
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var offerText: TextView
     private lateinit var errorText: TextView
     private lateinit var warningText: TextView
     private lateinit var loaderContainer: FrameLayout
@@ -59,6 +60,7 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
         dateButtonContainer = view.findViewById(R.id.dateButtonContainer)
         progressBar = view.findViewById(R.id.progress_bar)
         errorText = view.findViewById(R.id.error_text)
+        offerText = view.findViewById(R.id.offer_text)
         warningText = view.findViewById(R.id.warningText)
         loaderContainer = view.findViewById(R.id.loader_container)
         contentContainer = view.findViewById(R.id.content_container)
@@ -99,6 +101,7 @@ class SlotSelectionFragment : Fragment(R.layout.fragment_slot_selection) {
                     hideLoading()
                     sportAdapter.submit(result.sportDetails)
                     timelineView.setBlockedSlots(result.slots, viewModel.getSelectedDate())
+                    offerText.text = result.offerText
                 }
 
                 is SlotSelectionState.Error -> {

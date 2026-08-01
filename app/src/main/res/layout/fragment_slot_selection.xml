@@ -94,12 +94,12 @@
                         <!-- SPORTS -->
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/offer_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="12dp"
                         android:layout_marginTop="6dp"
-                        android:text="Select more than 2 hours to avail &quot;Book 2 hrs get 1 extra hr free &quot; offer."
                         android:textSize="12sp"
                         android:textColor="@color/cf_progress_yellow"/>
 

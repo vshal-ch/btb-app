@@ -15,8 +15,11 @@ import com.btb.beatthebox.data.repository.PaymentRepository
 import com.btb.beatthebox.utils.HeaderInterceptor
 import com.btb.beatthebox.utils.TokenRefreshAuthenticator
 import com.btb.beatthebox.utils.VersionInterceptor
+import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import java.io.File
 
 private val Context.dataStore by preferencesDataStore("auth_prefs")
 
@@ -54,10 +57,33 @@ object ServiceLocator {
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
+        val singleEndpointCacheInterceptor = Interceptor { chain ->
+            val request = chain.request()
+            val hasCacheHeader = request.header("X-Local-Cache") != null
+
+            val response = chain.proceed(request)
+
+            if (hasCacheHeader) {
+                // Force cache this specific response for 1 hour (3600 seconds)
+                response.newBuilder()
+                    .header("Cache-Control", "public, max-age=3600")
+                    .removeHeader("Pragma") // Clear legacy headers that block caching
+                    .build()
+            } else {
+                response
+            }
+        }
+
+        val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB allocation
+        val myCache = Cache(File(context.cacheDir, "http_cache"), cacheSize)
+
         val okHttpClient = OkHttpClient.Builder()
+            .cache(myCache)
             .addInterceptor(logging)
             .addInterceptor(VersionInterceptor(appContext))
             .addInterceptor(HeaderInterceptor(tokenStore))
+            .addInterceptor(singleEndpointCacheInterceptor)
             .authenticator(
                 TokenRefreshAuthenticator(
                     tokenStore = tokenStore,

@@ -33,6 +33,7 @@ class SlotSelectionViewModel : ViewModel() {
     private var allSports: List<AllSportDetail> = emptyList()
     private var notes: List<Note> = emptyList()
     private var currentSlots: List<Slot> = emptyList()
+    private var offerText: String = ""
     private var selectedDate: LocalDate = LocalDate.now()
     private var selectedSport: AllSportDetail? = null
     private var hasLoadedInitially = false
@@ -72,10 +73,13 @@ class SlotSelectionViewModel : ViewModel() {
                 )
                 currentSlots = slots
 
+                offerText = costRepository.getOfferText()
+
                 _uiState.value =
                     SlotSelectionState.Success(
                         sportDetails = allSports,
-                        slots = slots
+                        slots = slots,
+                        offerText = offerText
                     )
 
                 val noteResponse = bookingRepository.getSlotSelectionNotes()
@@ -125,10 +129,13 @@ class SlotSelectionViewModel : ViewModel() {
                 )
                 currentSlots = slots
 
+                offerText = costRepository.getOfferText()
+
                 _uiState.value =
                     SlotSelectionState.Success(
                         sportDetails = allSports,
-                        slots = slots
+                        slots = slots,
+                        offerText
                     )
             } catch (e: Exception) {
                 _uiState.value =

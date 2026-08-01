@@ -46,4 +46,22 @@ class CostRepository(private val apiService: ApiService) {
             )
         }
     }
+
+    suspend fun getOfferText(): String {
+        val response = apiService.getOfferText()
+        if (response.isSuccessful && response.body() != null) {
+            val body = response.body()!!
+            if (body.success && body.data != null) {
+                return body.data
+            } else {
+                throw IllegalStateException(
+                    body.error ?: "Failed to fetch offer text"
+                )
+            }
+        } else {
+            throw IllegalStateException(
+                "Offer text API failed: ${response.errorMessage()}"
+            )
+        }
+    }
 }
